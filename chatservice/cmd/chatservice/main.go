@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jorgepereirajunior/fclx/chatservice/configs"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/repository"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/web"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/web/webserver"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/usecase/chatcompletion"
-	"github.com/jorgepereirajunior/fclx/chatservice/internal/usecase/chatcompletionstream"
 	"github.com/sashabaranov/go-openai"
 )
 
@@ -40,21 +40,21 @@ func main() {
 		InitialSystemMessage: configs.InitialChatMessage,
 	}
 
-	chatConfigStream := chatcompletionstream.ChatCompletionConfigInputDTO{
-		Model:                configs.Model,
-		ModelMaxTokens:       configs.ModelMaxTokens,
-		Temperature:          float32(configs.Temperature),
-		TopP:                 float32(configs.TopP),
-		N:                    configs.N,
-		Stop:                 configs.Stop,
-		MaxTokens:            configs.MaxTokens,
-		InitialSystemMessage: configs.InitialChatMessage,
-	}
+	// chatConfigStream := chatcompletionstream.ChatCompletionConfigInputDTO{
+	// 	Model:                configs.Model,
+	// 	ModelMaxTokens:       configs.ModelMaxTokens,
+	// 	Temperature:          float32(configs.Temperature),
+	// 	TopP:                 float32(configs.TopP),
+	// 	N:                    configs.N,
+	// 	Stop:                 configs.Stop,
+	// 	MaxTokens:            configs.MaxTokens,
+	// 	InitialSystemMessage: configs.InitialChatMessage,
+	// }
 
 	usecase := chatcompletion.NewChatCompletionUseCase(repo, client)
 
-	streamChannel := make(chan chatcompletionstream.ChatCompletionOutputDTO)
-	usecaseStream := chatcompletionstream.NewChatCompletionUseCase(repo, client, streamChannel)
+	// streamChannel := make(chan chatcompletionstream.ChatCompletionOutputDTO)
+	// usecaseStream := chatcompletionstream.NewChatCompletionUseCase(repo, client, streamChannel)
 
 	fmt.Println("Starting gRPC server on port " + configs.GRPCServerPort)
 
