@@ -25,7 +25,7 @@ type Chat struct {
 	ErasedMessages       []*Message
 	Status               string
 	TokenUsage           int
-	Config               ChatConfig
+	Config               *ChatConfig
 }
 
 func NewChat(userId string, initialSystemMessage *Message, chatConfig *ChatConfig) (*Chat, error) {
@@ -34,7 +34,7 @@ func NewChat(userId string, initialSystemMessage *Message, chatConfig *ChatConfi
 		UserID:               userId,
 		InitialSystemMessage: initialSystemMessage,
 		Status:               "active",
-		Config:               *chatConfig,
+		Config:               chatConfig,
 		TokenUsage:           0,
 	}
 	chat.AddMessage(initialSystemMessage)
