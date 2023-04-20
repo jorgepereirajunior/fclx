@@ -6,6 +6,8 @@ import (
 
 	"github.com/jorgepereirajunior/fclx/chatservice/configs"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/repository"
+	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/web"
+	"github.com/jorgepereirajunior/fclx/chatservice/internal/infra/web/webserver"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/usecase/chatcompletion"
 	"github.com/jorgepereirajunior/fclx/chatservice/internal/usecase/chatcompletionstream"
 	"github.com/sashabaranov/go-openai"
@@ -53,4 +55,13 @@ func main() {
 
 	streamChannel := make(chan chatcompletionstream.ChatCompletionOutputDTO)
 	usecaseStream := chatcompletionstream.NewChatCompletionUseCase(repo, client, streamChannel)
+
+	fmt.Println("Starting gRPC server on port " + configs.GRPCServerPort)
+
+	webserver := webserver.NewWebServer(":" + configs.WebServerPort)
+	webserverChatHandler := web.NewWebChatGPTHandler(*usecase, chatConfig, configs.AuthToken)
+	webserver.AddHandler("/chat", webserverChatHandler.Handle)
+
+	fmt.Println("Server running on port " + configs.WebServerPort)
+	webserver.Start()
 }
