@@ -15,5 +15,5 @@ message ChatResponse {
 }
 
 service ChatService {
-  rpc ChatStream(ChatRequest) returns (stream ChatResponse)
+  rpc ChatStream(ChatRequest) returns (stream ChatResponse) {}
 }
