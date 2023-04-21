@@ -1,11 +1,12 @@
-# POST http://localhost:8081/chat HTTP/1.1
-# Content-Type: application/json
-# Authorization: 123456
+POST http://localhost:8081/chat HTTP/1.1
+Content-Type: application/json
+Authorization: 123456
 
-# {
-#   "user_id": "1",
-#   "user_message": "Olá, qual é o seu nome?"
-# }
+{
+  "chat_id": "3121f582-9f52-40b1-8ae2-2b6cee8ed12a",
+  "user_id": "2",
+  "user_message": "O que você faz?"
+}
 
 
 
@@ -21,11 +22,11 @@
 # }
 
 
-POST http://localhost:8081/chat HTTP/1.1
-Content-Type: application/json
-Authorization: 123456
+# POST http://localhost:8081/chat HTTP/1.1
+# Content-Type: application/json
+# Authorization: 123456
 
-{
-  "user_id": "1",
-  "user_message": "O que é gRPC?"
-}
+# {
+#   "user_id": "1",
+#   "user_message": "O que é gRPC?"
+# }
