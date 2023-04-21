@@ -98,11 +98,11 @@ func (uc *ChatCompletionUseCase) Execute(ctx context.Context, input ChatCompleti
 		return nil, errors.New("error openai: " + err.Error())
 	}
 
-	assistant, err := entity.NewMessage("assistant", resp.Choices[0].Message.Content, chat.Config.Model)
+	assistance, err := entity.NewMessage("assistance", resp.Choices[0].Message.Content, chat.Config.Model)
 	if err != nil {
 		return nil, err
 	}
-	err = chat.AddMessage(assistant)
+	err = chat.AddMessage(assistance)
 	if err != nil {
 		return nil, err
 	}
