@@ -58,8 +58,6 @@ func main() {
 	streamChannel := make(chan chatcompletionstream.ChatCompletionOutputDTO)
 	usecaseStream := chatcompletionstream.NewChatCompletionUseCase(repo, client, streamChannel)
 
-	fmt.Println("Starting gRPC server on port " + configs.GRPCServerPort)
-
 	webserver := webserver.NewWebServer(":" + configs.WebServerPort)
 	webserverChatHandler := web.NewWebChatGPTHandler(*usecase, chatConfig, configs.AuthToken)
 	webserver.AddHandler("/chat", webserverChatHandler.Handle)
